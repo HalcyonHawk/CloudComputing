@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Post;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -16,7 +19,7 @@ class CommentController extends Controller
     {
         $post = Post::findOrFail($postId);
 
-        return view('comment.create');
+        return view('comment.create', ['postId' => $postId]);
     }
 
     /**
@@ -30,6 +33,7 @@ class CommentController extends Controller
         $post = Post::findOrFail($postId);
         $data = $request->all();
         $data['user_id'] = Auth::user()->user_id;
+        $data['post_id'] = $postId;
         $data['last_edited'] = today();
 
         Comment::create($data);
@@ -44,7 +48,7 @@ class CommentController extends Controller
      * @param  int $commentId Comment id of the comment being removed
      * @return \Illuminate\Http\Response
      */
-    public function destroy($commentId)
+    public function destroy($postId, $commentId)
     {
         $comment = Comment::findOrFail($commentId);
         $comment->delete();

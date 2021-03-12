@@ -9,6 +9,7 @@ class Comment extends Model
     protected $table = 'comments';
     protected $guarded = [];
     protected $primaryKey = 'comment_id';
+    public $timestamps = false;
 
     public function getLastEditedFormattedAttribute()
     {
@@ -17,11 +18,11 @@ class Comment extends Model
 
     public function user()
     {
-        return $this->belongsTo('App/User', 'user_id', 'user_id');
+        return $this->belongsTo('App\User', 'user_id', 'user_id');
     }
 
     public function post()
     {
-        return $this->belongsTo('App/Post', 'post_id', 'post_id');
+        return $this->belongsTo('App\Post', 'post_id', 'post_id');
     }
 }

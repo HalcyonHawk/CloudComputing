@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -19,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role'
     ];
 
     /**
@@ -33,11 +34,11 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany('App/Post', 'user_id', 'user_id');
+        return $this->hasMany('App\Post', 'user_id', 'user_id');
     }
 
     public function comments()
     {
-        return $this->hasMany('App/Comment', 'user_id', 'user_id');
+        return $this->hasMany('App\Comment', 'user_id', 'user_id');
     }
 }

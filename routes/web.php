@@ -11,24 +11,25 @@
 |
 */
 
-Auth::routes(['register' => false, 'reset' => false]);
-
 Route::group(['middleware' => 'auth'], function () {
     //Only admin users can manage posts
-    Route::group(['middleware' => 'role'], function () {
-        Route::resource('posts', 'PostController')->only([
-            'create', 'store', 'update', 'destroy'
-        ]);
-    });
+    Route::resource('post', 'PostController')->only([
+        'create', 'store', 'edit', 'update', 'destroy'
+    ]);
 
     //All logged in users can comment
     //Shallow means that a post id is not needed for show, edit, update, destroy
-    Route::resource('posts.comments', 'CommentController')->only([
+    Route::resource('post.comment', 'CommentController')->only([
         'create', 'store', 'destroy'
-    ])->shallow();
+    ]);
 });
 
 //Anyone visting the site can view posts
-Route::resource('posts', 'PostController')->only([
+Route::resource('post', 'PostController')->only([
     'index', 'show'
 ]);
+
+Auth::routes();
+
+//Website home page
+Route::get('/', 'PostController@index');

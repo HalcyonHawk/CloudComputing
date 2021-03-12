@@ -6,7 +6,7 @@
 <div class="card">
     <div class="card-header"><h3>Add Comment</h3></div>
     <div class="card-body">
-        <form method="POST" action="{{ route('comment.store') }}">
+        <form method="POST" action="{{ route('post.comment.store', ['post' => $postId]) }}">
             @csrf
 
             <div class="form-group row">
