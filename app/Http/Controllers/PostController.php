@@ -33,7 +33,7 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created post in database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -54,7 +54,7 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified post.
+     * Display the specified post and its comments.
      *
      * @param  int $post
      * @return \Illuminate\Http\Response
@@ -66,7 +66,7 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified post.
      *
      * @param  int $postId
      * @return \Illuminate\Http\Response
