@@ -37,6 +37,8 @@
             </div>
         </div>
         <div class="card-body">
+            <img src="{{ $post->file_link }}">
+
             {{ $post->content }}
         </div>
     </div>
