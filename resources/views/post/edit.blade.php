@@ -32,7 +32,15 @@
                 <label for="photo" class="col-md-4 col-form-label text-md-right">{{ __('Photo') }}</label>
 
                 <div class="col-md-6">
-                    <input id="photo" type="file" name="photo">
+                    <input id="photo" type="file" name="photo" class="form-control-file">
+                </div>
+            </div>
+            @else
+            <div class="form-group row">
+                <label for="is_photo" class="col-md-4 col-form-label text-md-right">{{ __('Check Remove the Photo in the Post') }}</label>
+
+                <div class="col-md-6">
+                    <input id="is_photo" type="checkbox" name="is_photo" class="form-check-input">
                 </div>
             </div>
             @endif

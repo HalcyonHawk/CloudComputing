@@ -106,17 +106,24 @@ class PostController extends Controller
         }
         $post = Post::find($postId);
 
-        $data = $request->except('_method', 'photo');
+        $data = $request->except('_method', 'photo', 'is_photo');
         $data['last_edited'] = today();
 
-        $image = $request->file('photo');
-        $filePath = 'image_' . $post->post_id;
-        $s3 = \Storage::disk('s3');
-        //Photos not stored in any folders
-        $s3->put($filePath, file_get_contents($image), 'public');
-        $post->update(['photo_link' => $filePath]);
-
-        $post->update($data);
+        if ($post->file_link != null) {
+            $image = $request->file('photo');
+            $filePath = 'image_' . $post->post_id;
+            $s3 = \Storage::disk('s3');
+            //Photos not stored in any folders
+            $s3->put($filePath, file_get_contents($image), 'public');
+            $post->update(['photo_link' => $filePath]);
+    
+            $post->update(['photo_link' => $filePath]);
+        } else {
+            if ($request->input('is_photo') == 1) {
+                $post->update(['photo_link' => null]);
+                //TODO: Remove photo from AWS
+            }
+        }
 
         return redirect()->route('post.show', ['post' => $postId]);
     }
