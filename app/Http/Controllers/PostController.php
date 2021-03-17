@@ -52,13 +52,17 @@ class PostController extends Controller
 
         $post = Post::create($data);
 
+        //Store image locally
+        //$path = $request->file('photo')->store('images');
+
+        //AWS
+        //$path = $request->file('photo')->store('images', 's3');
+
         $image = $request->file('photo');
-        if ($image != null) {
-            $filePath = 'image_' . $post->post_id;
-            $s3 = \Storage::disk('s3')
-                ->put($filePath, file_get_contents($image), 'public');
-            $post->update(['photo_link' => $filePath]);
-        }
+        $filePath = 'image_' . $post->post_id;
+        $s3 = \Storage::disk('s3')
+            ->put($filePath, file_get_contents($image), 'public');
+        $post->update(['photo_link' => $filePath]);
 
         return redirect()->route('post.index');
     }
@@ -106,13 +110,11 @@ class PostController extends Controller
         $data['last_edited'] = today();
 
         $image = $request->file('photo');
-        if ($image != null) {
-            $filePath = 'image_' . $post->post_id;
-            $s3 = \Storage::disk('s3');
-            //Photos not stored in any folders
-            $s3->put($filePath, file_get_contents($image), 'public');
-            $post->update(['photo_link' => $filePath]);
-        }
+        $filePath = 'image_' . $post->post_id;
+        $s3 = \Storage::disk('s3');
+        //Photos not stored in any folders
+        $s3->put($filePath, file_get_contents($image), 'public');
+        $post->update(['photo_link' => $filePath]);
 
         $post->update($data);
 
