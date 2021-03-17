@@ -115,15 +115,16 @@ class PostController extends Controller
             $s3 = \Storage::disk('s3');
             //Photos not stored in any folders
             $s3->put($filePath, file_get_contents($image), 'public');
-            $post->update(['photo_link' => $filePath]);
-    
-            $post->update(['photo_link' => $filePath]);
+            $data['photo_link'] = $filePath;
         } else {
-            if ($request->input('is_photo') == 1) {
-                $post->update(['photo_link' => null]);
+            //If the remove checkbox is checked
+            if ($request->has('is_photo')) {
+                $data['photo_link'] = null;
                 //TODO: Remove photo from AWS
             }
         }
+
+        $post->update($data);
 
         return redirect()->route('post.show', ['post' => $postId]);
     }

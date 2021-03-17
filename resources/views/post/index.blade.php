@@ -37,8 +37,8 @@
             </div>
         </div>
         <div class="card-body">
-            @if ($post->file_link != null)
-            <img src="{{ "https://laravel-blog-images.s3.amazonaws.com/" . $post->file_link . ".jpg" }}">
+            @if ($post->photo_link != null)
+            <img src="{{ "https://laravel-blog-images.s3.amazonaws.com/" . $post->photo_link }}">
             @endif
 
             {{ $post->content }}
