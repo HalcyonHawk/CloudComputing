@@ -7,6 +7,7 @@ use App\Comment;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Filesystem\Filesystem;
 
 class PostController extends Controller
 {
@@ -45,10 +46,19 @@ class PostController extends Controller
             return redirect()->back()->withInput();
         }
 
-        $data = $request->all();
+        //Create without image, then add the image
+        $data = $request->except('photo');
         $data['last_edited'] = today();
 
-        Post::create($data);
+        $post = Post::create($data);
+
+        $image = $request->file('photo');
+        if ($image != null) {
+            $filePath = 'image_' . $post->post_id;
+            $s3 = \Storage::disk('s3')
+                ->put($filePath, file_get_contents($image), 'public');
+            $post->update(['photo_link' => $filePath]);
+        }
 
         return redirect()->route('post.index');
     }
@@ -92,8 +102,17 @@ class PostController extends Controller
         }
         $post = Post::find($postId);
 
-        $data = $request->except('_method');
+        $data = $request->except('_method', 'photo');
         $data['last_edited'] = today();
+
+        $image = $request->file('photo');
+        if ($image != null) {
+            $filePath = 'image_' . $post->post_id;
+            $s3 = \Storage::disk('s3');
+            //Photos not stored in any folders
+            $s3->put($filePath, file_get_contents($image), 'public');
+            $post->update(['photo_link' => $filePath]);
+        }
 
         $post->update($data);
 

@@ -26,10 +26,10 @@
             </div>
 
             <div class="form-group row">
-                <label for="photo_link" class="col-md-4 col-form-label text-md-right">{{ __('Photo') }}</label>
+                <label for="photo" class="col-md-4 col-form-label text-md-right">{{ __('Photo') }}</label>
 
                 <div class="col-md-6">
-                    <input id="photo_link" type="file" name="photo_link">                             
+                    <input id="photo" type="file" name="photo">                             
                 </div>
             </div>
 
