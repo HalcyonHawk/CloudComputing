@@ -30,7 +30,7 @@
                 <label for="photo_link" class="col-md-4 col-form-label text-md-right">{{ __('Photo') }}</label>
 
                 <div class="col-md-6">
-                    <input id="photo_link" type="file" name="content">
+                    <input id="photo_link" type="file" name="photo_link">
                 </div>
             </div>
 

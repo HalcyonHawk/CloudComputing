@@ -18,7 +18,6 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     //All logged in users can comment
-    //Shallow means that a post id is not needed for show, edit, update, destroy
     Route::resource('post.comment', 'CommentController')->only([
         'create', 'store', 'destroy'
     ]);
