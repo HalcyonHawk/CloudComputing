@@ -24,7 +24,7 @@
                     <textarea id="content" class="form-control" style="resize: none;" rows="6" name="content" required>{{ old('content') }}</textarea>
                 </div>
             </div>
-
+{{-- 
             <div class="form-group row">
                 <label for="photo" class="col-md-4 col-form-label text-md-right">{{ __('Photo') }}</label>
 
@@ -32,7 +32,7 @@
                     <input id="photo" type="file" name="photo" class="form-control-file">                             
                 </div>
             </div>
-
+ --}}
             <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-4">
                     <button type="submit" class="btn btn-primary">

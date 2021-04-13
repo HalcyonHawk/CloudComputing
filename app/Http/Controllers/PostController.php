@@ -7,7 +7,7 @@ use App\Comment;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Filesystem\Filesystem;
+//use Illuminate\Contracts\Filesystem\Filesystem;
 
 class PostController extends Controller
 {
@@ -58,11 +58,11 @@ class PostController extends Controller
         //AWS
         //$path = $request->file('photo')->store('images', 's3');
 
-        $image = $request->file('photo');
-        $filePath = 'image_' . $post->post_id;
-        $s3 = \Storage::disk('s3')
-            ->put($filePath, file_get_contents($image), 'public');
-        $post->update(['photo_link' => $filePath]);
+        //$image = $request->file('photo');
+        //$filePath = 'image_' . $post->post_id;
+        //$s3 = \Storage::disk('s3')
+        //    ->put($filePath, file_get_contents($image), 'public');
+        //$post->update(['photo_link' => $filePath]);
 
         return redirect()->route('post.index');
     }
@@ -108,7 +108,7 @@ class PostController extends Controller
 
         $data = $request->except('_method', 'photo', 'is_photo');
         $data['last_edited'] = today();
-
+/* 
         if ($post->file_link != null) {
             $image = $request->file('photo');
             $filePath = 'image_' . $post->post_id;
@@ -123,7 +123,7 @@ class PostController extends Controller
                 //TODO: Remove photo from AWS
             }
         }
-
+ */
         $post->update($data);
 
         return redirect()->route('post.show', ['post' => $postId]);

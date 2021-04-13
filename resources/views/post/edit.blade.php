@@ -25,8 +25,8 @@
                     <textarea id="content" class="form-control" style="resize: none;" rows="6" name="content" required>{{ $post->content }}</textarea>
                 </div>
             </div>
-
-            {{-- If post doesn't have an image, let the user add 1 --}}
+{{-- 
+            <!-- If post doesn't have an image, let the user add 1 -->
             @if ($post->photo_link == null)
             <div class="form-group row">
                 <label for="photo" class="col-md-4 col-form-label text-md-right">{{ __('Photo') }}</label>
@@ -44,7 +44,7 @@
                 </div>
             </div>
             @endif
-
+--}}
             <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-4">
                     <button type="submit" class="btn btn-primary">
