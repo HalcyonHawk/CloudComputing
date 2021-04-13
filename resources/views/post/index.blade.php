@@ -18,7 +18,6 @@
 
             <div class="float-right">
                 <div class="btn-group">
-                    {{ $post->LastEditedFormatted }}
                     <!--User can only edit their own post-->
                     @auth
                     @if (Auth::user()->role == "admin")
@@ -40,8 +39,11 @@
             @if ($post->photo_link != null)
             <img src="{{ "https://laravel-blog-images.s3.amazonaws.com/" . $post->photo_link }}">
             @endif
-
-            {{ $post->content }}
+            
+            <br><p class="card-text">{{ $post->content }}</p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">{{ $post->LastEditedFormatted }}</small>
         </div>
     </div>
     <div class="py-2"></div>
