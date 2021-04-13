@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('last_edited')->get();
+        $posts = Post::orderBy('last_edited')->orderBy('last_edited', 'DESC')->get();
 
         return view('post.index', ['posts' => $posts]);
     }
